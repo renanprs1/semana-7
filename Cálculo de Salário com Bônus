@@ -1,0 +1,88 @@
+package dominio;
+
+public class Funcionario {
+
+	private String nome;
+	private double salarioBase;
+	private String categoria;
+	
+	public Funcionario(String nome, double salarioBase, String categoria) {
+		super();
+		this.nome = nome;
+		this.salarioBase = salarioBase;
+		this.categoria = categoria;
+	}
+	
+	public double calcularSalarioFinal() {
+		double salarioFinal = salarioBase;
+		
+		switch(categoria) {
+			case "A":
+				salarioFinal *= 1.20;
+				break;
+			case "B":
+				salarioFinal *= 1.10;
+				break;
+			case "C":
+				// sem bonus
+				break;
+			default:
+				System.out.println("Categoria inválida. Nenhum bônus aplicado.");
+		}
+		
+		return salarioFinal;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public double getSalarioBase() {
+		return salarioBase;
+	}
+
+	public void setSalarioBase(double salarioBase) {
+		this.salarioBase = salarioBase;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	
+	
+}
+
+package controle;
+import dominio.Funcionario;
+import java.util.Scanner;
+
+public class GerenciadorFuncionario {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("Nome do Funcionário: ");
+		String nome = scanner.nextLine();
+		
+		System.out.print("Salário base: ");
+		double salarioBase = scanner.nextDouble();
+		
+		System.out.print("Categoria (A, B e C): ");
+		String categoria = scanner.next();
+		
+		Funcionario funcionario = new Funcionario(nome, salarioBase, categoria);
+		
+		double salarioFinal = funcionario.calcularSalarioFinal();
+        System.out.printf("\nSalário final de %s: R$ %.2f%n", 
+                         funcionario.getNome(), salarioFinal);
+        
+        scanner.close();
+	}
+}
